@@ -3,6 +3,7 @@
 [![Tests](https://github.com/philiprehberger/rb-inflector/actions/workflows/ci.yml/badge.svg)](https://github.com/philiprehberger/rb-inflector/actions/workflows/ci.yml)
 [![Gem Version](https://badge.fury.io/rb/philiprehberger-inflector.svg)](https://rubygems.org/gems/philiprehberger-inflector)
 [![License](https://img.shields.io/github/license/philiprehberger/rb-inflector)](LICENSE)
+[![Sponsor](https://img.shields.io/badge/sponsor-GitHub%20Sponsors-ec6cb9)](https://github.com/sponsors/philiprehberger)
 
 Rails-compatible string inflections without ActiveSupport dependency
 
@@ -81,4 +82,4 @@ bundle exec rubocop
 
 ## License
 
-MIT
+[MIT](LICENSE)
