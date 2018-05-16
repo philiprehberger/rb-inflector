@@ -57,7 +57,7 @@ module Philiprehberger
     # @param separate_id [Boolean] whether to separate with underscore
     # @return [String] the foreign key (e.g. "user_id")
     def self.foreign_key(class_name, separate_id: true)
-      key = underscore(class_name.to_s.gsub(/::/, '/').split('/').last)
+      key = underscore(class_name.to_s.gsub('::', '/').split('/').last)
       "#{key}#{separate_id ? '_id' : 'id'}"
     end
 
@@ -80,7 +80,7 @@ module Philiprehberger
     # @return [String] the snake_case string
     def self.underscore(str)
       result = str.to_s.dup
-      result.gsub!(/::/, '/')
+      result.gsub!('::', '/')
       result.gsub!(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
       result.gsub!(/([a-z\d])([A-Z])/, '\1_\2')
       result.tr!('-', '_')
