@@ -7,12 +7,25 @@ module Philiprehberger
   module Inflector
     class Error < StandardError; end
 
+    @custom_plurals = []
+    @custom_singulars = []
+    @custom_uncountables = []
+
+    class << self
+      attr_reader :custom_plurals, :custom_singulars, :custom_uncountables
+    end
+
     # Return the plural form of a word
     #
     # @param word [String] the word to pluralize
     # @return [String] the pluralized word
     def self.pluralize(word)
-      return word if word.empty? || Rules::UNCOUNTABLES.include?(word.downcase)
+      return word if word.empty?
+      return word if @custom_uncountables.include?(word.downcase) || Rules::UNCOUNTABLES.include?(word.downcase)
+
+      @custom_plurals.each do |pattern, replacement|
+        return word.sub(pattern, replacement) if word.match?(pattern)
+      end
 
       Rules::PLURALS.each do |pattern, replacement|
         return word.sub(pattern, replacement) if word.match?(pattern)
@@ -26,7 +39,12 @@ module Philiprehberger
     # @param word [String] the word to singularize
     # @return [String] the singularized word
     def self.singularize(word)
-      return word if word.empty? || Rules::UNCOUNTABLES.include?(word.downcase)
+      return word if word.empty?
+      return word if @custom_uncountables.include?(word.downcase) || Rules::UNCOUNTABLES.include?(word.downcase)
+
+      @custom_singulars.each do |pattern, replacement|
+        return word.sub(pattern, replacement) if word.match?(pattern)
+      end
 
       Rules::SINGULARS.each do |pattern, replacement|
         return word.sub(pattern, replacement) if word.match?(pattern)
@@ -124,6 +142,71 @@ module Philiprehberger
     # @return [String] the titleized string
     def self.titleize(str)
       humanize(underscore(str))
+    end
+
+    # Convert a number to its ordinal string
+    #
+    # @param number [Integer] the number to ordinalize
+    # @return [String] the ordinal string (e.g. "1st", "2nd", "3rd")
+    def self.ordinalize(number)
+      abs_number = number.to_i.abs
+      suffix = if (11..13).cover?(abs_number % 100)
+                 'th'
+               else
+                 case abs_number % 10
+                 when 1 then 'st'
+                 when 2 then 'nd'
+                 when 3 then 'rd'
+                 else 'th'
+                 end
+               end
+      "#{number}#{suffix}"
+    end
+
+    # Convert underscores to dashes in a string
+    #
+    # @param str [String] the underscored string
+    # @return [String] the dashed string
+    def self.dasherize(str)
+      str.to_s.tr('_', '-')
+    end
+
+    # Remove the module namespace from a fully qualified class name
+    #
+    # @param str [String] the fully qualified class name (e.g. "Admin::User")
+    # @return [String] the class name without namespace (e.g. "User")
+    def self.demodulize(str)
+      path = str.to_s
+      if (index = path.rindex('::'))
+        path[(index + 2)..]
+      else
+        path
+      end
+    end
+
+    # Register a custom pluralization rule
+    #
+    # @param pattern [Regexp, String] the pattern to match
+    # @param replacement [String] the replacement string
+    def self.add_plural_rule(pattern, replacement)
+      pattern = /#{pattern}/i if pattern.is_a?(String)
+      @custom_plurals.unshift([pattern, replacement])
+    end
+
+    # Register a custom singularization rule
+    #
+    # @param pattern [Regexp, String] the pattern to match
+    # @param replacement [String] the replacement string
+    def self.add_singular_rule(pattern, replacement)
+      pattern = /#{pattern}/i if pattern.is_a?(String)
+      @custom_singulars.unshift([pattern, replacement])
+    end
+
+    # Register additional uncountable words
+    #
+    # @param words [Array<String>] the words to add
+    def self.add_uncountable(*words)
+      @custom_uncountables.push(*words.flatten.map(&:downcase))
     end
   end
 end
