@@ -79,9 +79,25 @@ Philiprehberger::Inflector.demodulize('Admin::User')  # => "User"
 Philiprehberger::Inflector.demodulize('User')          # => "User"
 ```
 
+### Deconstantize
+
+```ruby
+Philiprehberger::Inflector.deconstantize('Admin::User')       # => "Admin"
+Philiprehberger::Inflector.deconstantize('Admin::Team::User') # => "Admin::Team"
+Philiprehberger::Inflector.deconstantize('User')              # => ""
+```
+
+### Upcase First
+
+```ruby
+Philiprehberger::Inflector.upcase_first('hello world')  # => "Hello world"
+Philiprehberger::Inflector.upcase_first('HELLO')        # => "HELLO"
+```
+
 ### Custom Rules
 
 ```ruby
+Philiprehberger::Inflector.add_irregular('person', 'people')
 Philiprehberger::Inflector.add_plural_rule(/ox$/i, 'oxen')
 Philiprehberger::Inflector.add_singular_rule(/oxen$/i, 'ox')
 Philiprehberger::Inflector.add_uncountable('metadata', 'bandwidth')
@@ -104,6 +120,9 @@ Philiprehberger::Inflector.add_uncountable('metadata', 'bandwidth')
 | `Inflector.ordinalize(number)` | Convert number to ordinal string |
 | `Inflector.dasherize(str)` | Convert underscores to dashes |
 | `Inflector.demodulize(str)` | Remove module namespace prefix |
+| `Inflector.deconstantize(str)` | Remove rightmost constant segment |
+| `Inflector.upcase_first(str)` | Uppercase only the first character |
+| `Inflector.add_irregular(singular, plural)` | Register irregular singular/plural pair |
 | `Inflector.add_plural_rule(pattern, replacement)` | Register custom plural rule |
 | `Inflector.add_singular_rule(pattern, replacement)` | Register custom singular rule |
 | `Inflector.add_uncountable(*words)` | Register uncountable words |

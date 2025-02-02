@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-04-10
+
+### Added
+- `deconstantize` for removing the rightmost segment from a constant name
+- `upcase_first` for uppercasing only the first character of a string
+- `add_irregular` for registering irregular singular/plural pairs (e.g., person/people)
+
 ## [0.2.0] - 2026-04-03
 
 ### Added

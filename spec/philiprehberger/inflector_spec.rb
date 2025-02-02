@@ -279,6 +279,64 @@ RSpec.describe Philiprehberger::Inflector do
     end
   end
 
+  describe '.deconstantize' do
+    it 'removes the rightmost segment' do
+      expect(described_class.deconstantize('Admin::User')).to eq('Admin')
+    end
+
+    it 'handles deeply nested namespaces' do
+      expect(described_class.deconstantize('App::Admin::User')).to eq('App::Admin')
+    end
+
+    it 'returns empty string for non-namespaced constant' do
+      expect(described_class.deconstantize('User')).to eq('')
+    end
+
+    it 'returns empty string for empty input' do
+      expect(described_class.deconstantize('')).to eq('')
+    end
+  end
+
+  describe '.upcase_first' do
+    it 'uppercases the first character' do
+      expect(described_class.upcase_first('hello world')).to eq('Hello world')
+    end
+
+    it 'leaves already uppercase strings unchanged' do
+      expect(described_class.upcase_first('HELLO')).to eq('HELLO')
+    end
+
+    it 'preserves rest of string' do
+      expect(described_class.upcase_first('hELLO')).to eq('HELLO')
+    end
+
+    it 'returns empty string for empty input' do
+      expect(described_class.upcase_first('')).to eq('')
+    end
+  end
+
+  describe '.add_irregular' do
+    after do
+      described_class.custom_plurals.shift
+      described_class.custom_singulars.shift
+    end
+
+    it 'pluralizes an irregular word' do
+      described_class.add_irregular('person', 'people')
+      expect(described_class.pluralize('person')).to eq('people')
+    end
+
+    it 'singularizes an irregular word' do
+      described_class.add_irregular('person', 'people')
+      expect(described_class.singularize('people')).to eq('person')
+    end
+
+    it 'preserves original casing' do
+      described_class.add_irregular('person', 'people')
+      expect(described_class.pluralize('Person')).to eq('People')
+    end
+  end
+
   describe '.add_plural_rule' do
     after do
       described_class.custom_plurals.shift
