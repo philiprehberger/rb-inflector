@@ -36,6 +36,8 @@ Philiprehberger::Inflector.singularize('cats')  # => "cat"
 ### Case Conversions
 
 ```ruby
+require "philiprehberger/inflector"
+
 Philiprehberger::Inflector.underscore('UserAccount')  # => "user_account"
 Philiprehberger::Inflector.camelize('user_account')   # => "UserAccount"
 Philiprehberger::Inflector.humanize('author_id')      # => "Author"
@@ -45,20 +47,26 @@ Philiprehberger::Inflector.titleize('user_account')   # => "User Account"
 ### Database Conventions
 
 ```ruby
-Philiprehberger::Inflector.tableize('UserAccount')  # => "user_accounts"
-Philiprehberger::Inflector.classify('user_accounts') # => "UserAccount"
-Philiprehberger::Inflector.foreign_key('User')       # => "user_id"
+require "philiprehberger/inflector"
+
+Philiprehberger::Inflector.tableize('UserAccount')   # => "user_accounts"
+Philiprehberger::Inflector.classify('user_accounts')  # => "UserAccount"
+Philiprehberger::Inflector.foreign_key('User')        # => "user_id"
 ```
 
 ### URL Parameters
 
 ```ruby
+require "philiprehberger/inflector"
+
 Philiprehberger::Inflector.parameterize('Hello World!')  # => "hello-world"
 ```
 
 ### Ordinals
 
 ```ruby
+require "philiprehberger/inflector"
+
 Philiprehberger::Inflector.ordinalize(1)   # => "1st"
 Philiprehberger::Inflector.ordinalize(2)   # => "2nd"
 Philiprehberger::Inflector.ordinalize(3)   # => "3rd"
@@ -69,12 +77,16 @@ Philiprehberger::Inflector.ordinalize(21)  # => "21st"
 ### Dasherize
 
 ```ruby
+require "philiprehberger/inflector"
+
 Philiprehberger::Inflector.dasherize('some_thing')  # => "some-thing"
 ```
 
 ### Demodulize
 
 ```ruby
+require "philiprehberger/inflector"
+
 Philiprehberger::Inflector.demodulize('Admin::User')  # => "User"
 Philiprehberger::Inflector.demodulize('User')          # => "User"
 ```
@@ -82,6 +94,8 @@ Philiprehberger::Inflector.demodulize('User')          # => "User"
 ### Deconstantize
 
 ```ruby
+require "philiprehberger/inflector"
+
 Philiprehberger::Inflector.deconstantize('Admin::User')       # => "Admin"
 Philiprehberger::Inflector.deconstantize('Admin::Team::User') # => "Admin::Team"
 Philiprehberger::Inflector.deconstantize('User')              # => ""
@@ -90,6 +104,8 @@ Philiprehberger::Inflector.deconstantize('User')              # => ""
 ### Upcase First
 
 ```ruby
+require "philiprehberger/inflector"
+
 Philiprehberger::Inflector.upcase_first('hello world')  # => "Hello world"
 Philiprehberger::Inflector.upcase_first('HELLO')        # => "HELLO"
 ```
@@ -97,10 +113,27 @@ Philiprehberger::Inflector.upcase_first('HELLO')        # => "HELLO"
 ### Custom Rules
 
 ```ruby
+require "philiprehberger/inflector"
+
 Philiprehberger::Inflector.add_irregular('person', 'people')
 Philiprehberger::Inflector.add_plural_rule(/ox$/i, 'oxen')
 Philiprehberger::Inflector.add_singular_rule(/oxen$/i, 'ox')
 Philiprehberger::Inflector.add_uncountable('metadata', 'bandwidth')
+```
+
+### String Refinements
+
+For a more natural syntax, use the refinements module:
+
+```ruby
+require "philiprehberger/inflector"
+using Philiprehberger::Inflector::StringRefinements
+
+'user_account'.camelize        # => "UserAccount"
+'UserAccount'.tableize         # => "user_accounts"
+'Hello World!'.parameterize    # => "hello-world"
+'Admin::User'.demodulize       # => "User"
+1.ordinalize                   # => "1st"
 ```
 
 ## API

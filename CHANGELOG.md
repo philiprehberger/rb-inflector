@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-04-12
+
+### Added
+- String refinements module for natural `'string'.method` syntax via `using Philiprehberger::Inflector::StringRefinements`
+- Integer refinement for `1.ordinalize` via the same module
+- All 14 string inflection methods available as refinements: `pluralize`, `singularize`, `tableize`, `classify`, `foreign_key`, `parameterize`, `underscore`, `camelize`, `humanize`, `titleize`, `dasherize`, `demodulize`, `deconstantize`, `upcase_first`
+
+### Changed
+- Reduce max line length from 140 to 120 for rubocop compliance
+
 ## [0.3.0] - 2026-04-10
 
 ### Added
