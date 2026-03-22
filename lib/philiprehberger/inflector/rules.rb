@@ -13,7 +13,7 @@ module Philiprehberger
         [/(passer)s?by$/i, '\1sby'],
         [/(matr|vert|append)ix|ex$/i, '\1ices'],
         [/(x|ch|ss|sh)$/i, '\1es'],
-        [/([^aeiouy]}|qu)y$/i, '\1ies'],
+        [/([^aeiouy]|qu)y$/i, '\1ies'],
         [/(hive)$/i, '\1s'],
         [/([^f])fe$/i, '\1ves'],
         [/(ar|l|ea|eo|oa|hoo)f$/i, '\1ves'],
