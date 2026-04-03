@@ -56,6 +56,37 @@ Philiprehberger::Inflector.foreign_key('User')       # => "user_id"
 Philiprehberger::Inflector.parameterize('Hello World!')  # => "hello-world"
 ```
 
+### Ordinals
+
+```ruby
+Philiprehberger::Inflector.ordinalize(1)   # => "1st"
+Philiprehberger::Inflector.ordinalize(2)   # => "2nd"
+Philiprehberger::Inflector.ordinalize(3)   # => "3rd"
+Philiprehberger::Inflector.ordinalize(11)  # => "11th"
+Philiprehberger::Inflector.ordinalize(21)  # => "21st"
+```
+
+### Dasherize
+
+```ruby
+Philiprehberger::Inflector.dasherize('some_thing')  # => "some-thing"
+```
+
+### Demodulize
+
+```ruby
+Philiprehberger::Inflector.demodulize('Admin::User')  # => "User"
+Philiprehberger::Inflector.demodulize('User')          # => "User"
+```
+
+### Custom Rules
+
+```ruby
+Philiprehberger::Inflector.add_plural_rule(/ox$/i, 'oxen')
+Philiprehberger::Inflector.add_singular_rule(/oxen$/i, 'ox')
+Philiprehberger::Inflector.add_uncountable('metadata', 'bandwidth')
+```
+
 ## API
 
 | Method | Description |
@@ -70,6 +101,12 @@ Philiprehberger::Inflector.parameterize('Hello World!')  # => "hello-world"
 | `Inflector.camelize(str, uppercase_first:)` | Convert snake_case to CamelCase |
 | `Inflector.humanize(str)` | Convert to human-readable form |
 | `Inflector.titleize(str)` | Convert to title case |
+| `Inflector.ordinalize(number)` | Convert number to ordinal string |
+| `Inflector.dasherize(str)` | Convert underscores to dashes |
+| `Inflector.demodulize(str)` | Remove module namespace prefix |
+| `Inflector.add_plural_rule(pattern, replacement)` | Register custom plural rule |
+| `Inflector.add_singular_rule(pattern, replacement)` | Register custom singular rule |
+| `Inflector.add_uncountable(*words)` | Register uncountable words |
 
 ## Development
 

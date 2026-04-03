@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-04-03
+
+### Added
+- `ordinalize` for converting numbers to ordinal strings (1st, 2nd, 3rd)
+- `dasherize` for converting underscored strings to dashed form
+- `demodulize` for removing module namespace prefixes
+- Custom inflection rules via `add_plural_rule`, `add_singular_rule`, `add_uncountable`
+
 ## [0.1.5] - 2026-03-31
 
 ### Added
