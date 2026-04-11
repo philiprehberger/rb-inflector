@@ -202,6 +202,44 @@ module Philiprehberger
       @custom_singulars.unshift([pattern, replacement])
     end
 
+    # Remove the rightmost segment from a fully qualified constant name
+    #
+    # @param str [String] the fully qualified constant name (e.g. "Admin::User")
+    # @return [String] the constant without the rightmost segment (e.g. "Admin")
+    def self.deconstantize(str)
+      path = str.to_s
+      if (index = path.rindex('::'))
+        path[0, index]
+      else
+        ''
+      end
+    end
+
+    # Uppercase only the first character of a string
+    #
+    # @param str [String] the string to modify
+    # @return [String] the string with the first character uppercased
+    def self.upcase_first(str)
+      str = str.to_s
+      return str if str.empty?
+
+      str[0].upcase + str[1..]
+    end
+
+    # Register an irregular singular/plural pair
+    #
+    # @param singular [String] the singular form (e.g. "person")
+    # @param plural [String] the plural form (e.g. "people")
+    def self.add_irregular(singular, plural)
+      s0 = singular[0]
+      srest = singular[1..]
+      p0 = plural[0]
+      prest = plural[1..]
+
+      add_plural_rule(/(#{s0})#{srest}$/i, "\\1#{prest}")
+      add_singular_rule(/(#{p0})#{prest}$/i, "\\1#{srest}")
+    end
+
     # Register additional uncountable words
     #
     # @param words [Array<String>] the words to add

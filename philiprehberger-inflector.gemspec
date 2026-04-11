@@ -9,8 +9,9 @@ Gem::Specification.new do |spec|
   spec.email = ['me@philiprehberger.com']
 
   spec.summary = 'Rails-compatible string inflections without ActiveSupport dependency'
-  spec.description = 'Provides pluralize, singularize, camelize, underscore, tableize, classify, and other ' \
-                     'string inflection methods compatible with Rails conventions, with zero dependencies.'
+  spec.description = 'Provides pluralize, singularize, camelize, underscore, tableize, classify, ordinalize, ' \
+                     'dasherize, demodulize, deconstantize, and other string inflection methods compatible ' \
+                     'with Rails conventions, with zero dependencies.'
   spec.homepage = 'https://philiprehberger.com/open-source-packages/ruby/philiprehberger-inflector'
   spec.license = 'MIT'
 
