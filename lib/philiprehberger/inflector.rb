@@ -2,6 +2,7 @@
 
 require_relative 'inflector/version'
 require_relative 'inflector/rules'
+require_relative 'inflector/string_refinements'
 
 module Philiprehberger
   module Inflector
