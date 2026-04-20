@@ -19,6 +19,16 @@ RSpec.describe Philiprehberger::Inflector::StringRefinements do
       end
     end
 
+    describe '#count' do
+      it 'formats count with pluralized word' do
+        expect('apple'.count(5)).to eq('5 apples')
+      end
+
+      it 'formats count with singular word when n is 1' do
+        expect('apple'.count(1)).to eq('1 apple')
+      end
+    end
+
     describe '#tableize' do
       it 'converts class name to table name' do
         expect('UserAccount'.tableize).to eq('user_accounts')

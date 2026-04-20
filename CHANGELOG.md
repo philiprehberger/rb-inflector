@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-04-22
+
+### Added
+- `Philiprehberger::Inflector.count(n, word)` — returns "n word" or "n words" based on count (uses existing singularize/pluralize). Also available as `String#count(n)` via the string refinement.
+
 ## [0.4.0] - 2026-04-12
 
 ### Added

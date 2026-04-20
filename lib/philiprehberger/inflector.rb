@@ -54,6 +54,26 @@ module Philiprehberger
       word
     end
 
+    # Format a count with singular/plural word agreement
+    #
+    # Uses the existing +singularize+/+pluralize+ logic to choose the correct form based on +n+.
+    # When +n.abs+ equals exactly 1, the singular form of +word+ is used; otherwise the plural form.
+    # The original +n+ (Integer or Float) is preserved in the returned string.
+    #
+    # @param n [Integer, Float] the count value
+    # @param word [String] the word to inflect
+    # @return [String] the formatted string, e.g. "1 apple" or "5 geese"
+    # @example
+    #   Philiprehberger::Inflector.count(1, 'apple')   # => "1 apple"
+    #   Philiprehberger::Inflector.count(0, 'apple')   # => "0 apples"
+    #   Philiprehberger::Inflector.count(5, 'goose')   # => "5 geese"
+    #   Philiprehberger::Inflector.count(-1, 'mouse')  # => "-1 mouse"
+    #   Philiprehberger::Inflector.count(1.5, 'apple') # => "1.5 apples"
+    def self.count(n, word)
+      form = n.abs == 1 ? singularize(word) : pluralize(word)
+      "#{n} #{form}"
+    end
+
     # Convert a class name to a table name
     #
     # @param class_name [String] the class name (e.g. "UserAccount")

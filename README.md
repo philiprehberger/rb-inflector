@@ -33,6 +33,16 @@ Philiprehberger::Inflector.pluralize('cat')     # => "cats"
 Philiprehberger::Inflector.singularize('cats')  # => "cat"
 ```
 
+### Count with word agreement
+
+```ruby
+require "philiprehberger/inflector"
+
+Philiprehberger::Inflector.count(1, 'apple')  # => "1 apple"
+Philiprehberger::Inflector.count(0, 'apple')  # => "0 apples"
+Philiprehberger::Inflector.count(3, 'goose')  # => "3 geese"
+```
+
 ### Case Conversions
 
 ```ruby
@@ -142,6 +152,7 @@ using Philiprehberger::Inflector::StringRefinements
 |--------|-------------|
 | `Inflector.pluralize(word)` | Return the plural form of a word |
 | `Inflector.singularize(word)` | Return the singular form of a word |
+| `Inflector.count(n, word)` | Format count with singular/plural agreement |
 | `Inflector.tableize(class_name)` | Convert class name to table name |
 | `Inflector.classify(table_name)` | Convert table name to class name |
 | `Inflector.foreign_key(class_name, separate_id:)` | Generate foreign key from class name |
