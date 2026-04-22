@@ -19,6 +19,10 @@ module Philiprehberger
           Philiprehberger::Inflector.singularize(self)
         end
 
+        def count(n)
+          Philiprehberger::Inflector.count(n, self)
+        end
+
         def tableize
           Philiprehberger::Inflector.tableize(self)
         end

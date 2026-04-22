@@ -59,6 +59,31 @@ RSpec.describe Philiprehberger::Inflector do
     end
   end
 
+  describe '.count' do
+    it 'returns singular form for count 1' do
+      expect(described_class.count(1, 'apple')).to eq('1 apple')
+    end
+
+    it 'returns plural form for count 0' do
+      expect(described_class.count(0, 'apple')).to eq('0 apples')
+    end
+
+    it 'returns plural form for count 5 with irregular word' do
+      described_class.add_irregular('goose', 'geese')
+      expect(described_class.count(5, 'goose')).to eq('5 geese')
+      described_class.custom_plurals.shift
+      described_class.custom_singulars.shift
+    end
+
+    it 'returns singular form for negative one' do
+      expect(described_class.count(-1, 'mouse')).to eq('-1 mouse')
+    end
+
+    it 'preserves Float value in output' do
+      expect(described_class.count(1.5, 'apple')).to eq('1.5 apples')
+    end
+  end
+
   describe '.tableize' do
     it 'converts class name to table name' do
       expect(described_class.tableize('UserAccount')).to eq('user_accounts')
