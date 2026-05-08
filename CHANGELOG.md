@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-05-08
+
+### Added
+- `Philiprehberger::Inflector.humanize_list(items, conjunction: 'and', oxford: true)` — formats an array as a human-readable list (e.g. `%w[a b c]` → `"a, b, and c"`); supports custom conjunction and an `oxford:` toggle for the serial comma
+
 ## [0.5.0] - 2026-04-22
 
 ### Added

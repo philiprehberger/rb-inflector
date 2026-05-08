@@ -417,4 +417,34 @@ RSpec.describe Philiprehberger::Inflector do
       described_class.custom_uncountables.pop
     end
   end
+
+  describe '.humanize_list' do
+    it 'returns empty string for empty array' do
+      expect(described_class.humanize_list([])).to eq('')
+    end
+
+    it 'returns the only item for a single-element array' do
+      expect(described_class.humanize_list(['apples'])).to eq('apples')
+    end
+
+    it 'joins two items with the conjunction' do
+      expect(described_class.humanize_list(%w[apples oranges])).to eq('apples and oranges')
+    end
+
+    it 'joins three+ items with the Oxford comma by default' do
+      expect(described_class.humanize_list(%w[a b c])).to eq('a, b, and c')
+    end
+
+    it 'omits the Oxford comma when oxford: false' do
+      expect(described_class.humanize_list(%w[a b c], oxford: false)).to eq('a, b and c')
+    end
+
+    it 'supports an alternative conjunction' do
+      expect(described_class.humanize_list(%w[a b c], conjunction: 'or')).to eq('a, b, or c')
+    end
+
+    it 'coerces non-string items via to_s' do
+      expect(described_class.humanize_list([1, 2, 3])).to eq('1, 2, and 3')
+    end
+  end
 end

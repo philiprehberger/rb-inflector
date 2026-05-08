@@ -43,6 +43,18 @@ Philiprehberger::Inflector.count(0, 'apple')  # => "0 apples"
 Philiprehberger::Inflector.count(3, 'goose')  # => "3 geese"
 ```
 
+### Humanize List
+
+```ruby
+require "philiprehberger/inflector"
+
+Philiprehberger::Inflector.humanize_list(%w[apples])               # => "apples"
+Philiprehberger::Inflector.humanize_list(%w[apples oranges])       # => "apples and oranges"
+Philiprehberger::Inflector.humanize_list(%w[a b c])                # => "a, b, and c"
+Philiprehberger::Inflector.humanize_list(%w[a b c], oxford: false) # => "a, b and c"
+Philiprehberger::Inflector.humanize_list(%w[a b c], conjunction: 'or') # => "a, b, or c"
+```
+
 ### Case Conversions
 
 ```ruby
@@ -153,6 +165,7 @@ using Philiprehberger::Inflector::StringRefinements
 | `Inflector.pluralize(word)` | Return the plural form of a word |
 | `Inflector.singularize(word)` | Return the singular form of a word |
 | `Inflector.count(n, word)` | Format count with singular/plural agreement |
+| `Inflector.humanize_list(items, conjunction:, oxford:)` | Join an array as a human-readable list |
 | `Inflector.tableize(class_name)` | Convert class name to table name |
 | `Inflector.classify(table_name)` | Convert table name to class name |
 | `Inflector.foreign_key(class_name, separate_id:)` | Generate foreign key from class name |

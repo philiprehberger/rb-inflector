@@ -267,5 +267,31 @@ module Philiprehberger
     def self.add_uncountable(*words)
       @custom_uncountables.push(*words.flatten.map(&:downcase))
     end
+
+    # Format an array as a human-readable list with a conjunction
+    #
+    # @param items [Array] the items to join (each is converted via to_s)
+    # @param conjunction [String] the joining word for the final pair (default 'and')
+    # @param oxford [Boolean] include the Oxford (serial) comma when there are 3+ items
+    # @return [String] the formatted list
+    # @example
+    #   Philiprehberger::Inflector.humanize_list([])                                  # => ""
+    #   Philiprehberger::Inflector.humanize_list(['apples'])                          # => "apples"
+    #   Philiprehberger::Inflector.humanize_list(%w[a b])                             # => "a and b"
+    #   Philiprehberger::Inflector.humanize_list(%w[a b c])                           # => "a, b, and c"
+    #   Philiprehberger::Inflector.humanize_list(%w[a b c], oxford: false)            # => "a, b and c"
+    #   Philiprehberger::Inflector.humanize_list(%w[a b c], conjunction: 'or')        # => "a, b, or c"
+    def self.humanize_list(items, conjunction: 'and', oxford: true)
+      items = Array(items).map(&:to_s)
+      case items.length
+      when 0 then ''
+      when 1 then items.first
+      when 2 then "#{items.first} #{conjunction} #{items.last}"
+      else
+        head = items[0..-2].join(', ')
+        separator = oxford ? ', ' : ' '
+        "#{head}#{separator}#{conjunction} #{items.last}"
+      end
+    end
   end
 end
